@@ -2,4 +2,4 @@ config.json
 *.py[cod]
 *$py.class
 *.swp
-
+data/
