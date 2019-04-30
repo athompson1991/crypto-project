@@ -3,3 +3,4 @@ config.json
 *$py.class
 *.swp
 data/
+.DS_Store
