@@ -4,7 +4,14 @@ This is the final project for CFRM 521, Machine Learning for Finance.
 
 ## Install and download data
 
-Three lines of code to get source:
+From the shell, make a python venv:
+
+```
+python -m venv crypto-venv
+source crypto-venv/bin/activate
+```
+
+Three lines of code to get source and install modules:
 
 ```
 git clone https://github.com/athompson1991/crypto-project.git
@@ -12,26 +19,9 @@ cd crypto-project
 pip install -r requirements.txt
 ```
 
-You need to drop a config.json file into the top level directory, make it look like this:
-
-```json
-{
-  "public_key": "your_key",
-  "private_key": "your_other_key",
-  "debug": {
-  	"symbols": ["USDT", "BTC", "ETH", "LTC"],
-	"start": "2019-01-01",
-	"end": "2019-01-03",
-	"granularity": "15m"
-  },
-  "prod": {
-	"symbols": ["USDT", "BTC", "ETH", "LTC", "DASH", "BNB", "TRX", "ZEC", "XRP", "EOS", "XMR", "ADA"],
-	"start": "2018-01-01",
-	"end": "2019-06-01",
-	"granularity": "5m"
-  }
-}
-```
+Everything is configured using a file named config.json and I have included an example. 
+Simply replace the API keys with your own information and rename the file from 
+example_config.json to config.json and it should be good to go.
 
 Once that's all in place, you can run the script like so:
 

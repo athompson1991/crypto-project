@@ -1,0 +1,16 @@
+{
+  "public_key": "your_key",
+  "private_key": "your_other_key",
+  "debug": {
+  	"symbols": ["USDT", "BTC", "ETH", "LTC"],
+	"start": "2019-01-01",
+	"end": "2019-01-03",
+	"granularity": "15m"
+  },
+  "prod": {
+	"symbols": ["USDT", "BTC", "ETH", "LTC", "DASH", "BNB", "TRX", "ZEC", "XRP", "EOS", "XMR", "ADA"],
+	"start": "2018-01-01",
+	"end": "2019-06-01",
+	"granularity": "5m"
+  }
+}
