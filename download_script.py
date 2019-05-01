@@ -5,5 +5,7 @@ if __name__ == "__main__":
     downloader = Downloader(True)
     downloader.configure()
     downloader.make_client()
+    print("Fetching data")
     downloader.fetch()
+    print("Saving to csv files")
     downloader.to_csv('data')

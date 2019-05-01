@@ -64,7 +64,6 @@ class Downloader(object):
         })
         return df
 
-
     def to_csv(self, target_dir):
         dirs = os.listdir()
         if target_dir not in dirs:
