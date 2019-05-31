@@ -4,3 +4,6 @@ config.json
 *.swp
 data/
 .DS_Store
+*.pdf
+*.zip
+*.ipynb_checkpoints

@@ -1,4 +1,5 @@
 from binance.client import Client
+from datetime import datetime
 import pandas as pd
 import json
 import os
@@ -8,7 +9,7 @@ def make_trading_pairs(tickers):
     for i in tickers:
         for j in tickers:
             if i != j:
-                get_pairs.append(i + j)
+                get_pairs.append(i +  j)
     return get_pairs
 
 class Downloader(object):
@@ -19,7 +20,7 @@ class Downloader(object):
         self.env = None
         self.client = None
         self.data = {}
- 
+
     def configure(self):
         with open('config.json') as f:
             self.config = json.load(f)
@@ -27,7 +28,7 @@ class Downloader(object):
             self.env = self.config['debug']
         else:
             self.env = self.config['prod']
- 
+
     def make_client(self):
         self.client = Client(
             self.config['public_key'],
@@ -54,21 +55,35 @@ class Downloader(object):
             self.env['end']
         )
 
+        timestamps = [datetime.fromtimestamp(int(t[0])/1000) for t in history]
+        timestamps = [t.replace(second=0, microsecond=0) for t in timestamps]
+
         df = pd.DataFrame({
-            'time': [t[0] for t in history],
             'open': [t[1] for t in history],
             'high': [t[2] for t in history],
             'low': [t[3] for t in history],
             'close': [t[4] for t in history],
-            'volume': [t[5] for t in history]
+            'volume': [t[5] for t in history],
+            'dividend': [0.0 for t in history],
+            'split': [1.0 for t in history],
+            'time': [t[0] for t in history],
         })
         return df
 
     def to_csv(self, target_dir):
+        cols = ['open', 'high', 'low', 'close', 'volume', 'dividend', 'split', 'time']
         dirs = os.listdir()
         if target_dir not in dirs:
             os.mkdir(target_dir)
-        for k in self.data.keys():
-            self.data[k].to_csv(target_dir + '/' + k + '.csv')
-
+        else:
+            for f in os.listdir(target_dir):
+                f_path = os.path.join(target_dir, f)
+                try:
+                    if os.path.isfile(f_path):
+                        os.unlink(f_path)
+                except Exception as e:
+                       print(e) 
+        for k, v in self.data.items():
+            v = v.reindex(columns=cols)
+            v.to_csv(target_dir + '/' + k + '.csv', index=False)
 
