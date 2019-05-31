@@ -4,19 +4,13 @@ This is the final project for CFRM 521, Machine Learning for Finance.
 
 ## Install and download data
 
-From the shell, make a python venv:
-
-```
-python -m venv crypto-venv
-source crypto-venv/bin/activate
-```
-
 Three lines of code to get source and install modules:
 
 ```
 git clone https://github.com/athompson1991/crypto-project.git
 cd crypto-project
-pip install -r requirements.txt
+conda env create -f environment.yml
+conda activate environment
 ```
 
 Everything is configured using a file named config.json and I have included an example. 
