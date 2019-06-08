@@ -51,7 +51,7 @@ class RollingAnalyzer:
             }
             self.rolled_regressions[code].append(reg_dict)
         
-    def asset_loop(self):
+    def make_pairs(self):
         for i in range(0, self.prices.shape[1]):
             pair_i = self.prices.columns[i]
             for j in range(0, i):

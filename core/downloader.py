@@ -21,8 +21,8 @@ class Downloader(object):
         self.client = None
         self.data = {}
 
-    def configure(self):
-        with open('config.json') as f:
+    def configure(self, config_file):
+        with open(config_file) as f:
             self.config = json.load(f)
         if self.debug:
             self.env = self.config['debug']
@@ -70,8 +70,9 @@ class Downloader(object):
         })
         return df
 
-    def to_csv(self, target_dir):
+    def to_csv(self, os_target, target_dir):
         cols = ['open', 'high', 'low', 'close', 'volume', 'dividend', 'split', 'time']
+        os.chdir(os_target)
         dirs = os.listdir()
         if target_dir not in dirs:
             os.mkdir(target_dir)

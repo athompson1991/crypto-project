@@ -3,7 +3,10 @@ config.json
 *$py.class
 *.swp
 data/
+features/
+__pycache__
 .DS_Store
 *.pdf
 *.zip
 *.ipynb_checkpoints
+project_venv
