@@ -8,7 +8,7 @@ def zero_to_one(x):
     return np.exp(x)/(1+np.exp(x))
 
 def to_infinity(x):
-    np.log(x/(1-x))
+    return np.log(x/(1-x))
 
 def get_dfs(dir):
   files = os.listdir(dir)
@@ -60,12 +60,6 @@ def calc_returns(closes):
   returns = returns.drop(returns.index[0])
   return returns
 
-
-def rename_columns(df, tag):
-    new_column_names = [col + '_' + tag for col in df.columns]
-    df.columns = new_column_names
-    return df
-
 def rename_columns(df, tag):
     new_column_names = [col + '_' + tag for col in df.columns]
     df.columns = new_column_names
@@ -75,10 +69,10 @@ def calculate_lags(features, target, m):
   target_lags = {}
   for i in range(0, m):
       code = 'y' + str(i)
-      lag = target.shift(-i)
+      lag = target.shift(-i).iloc[:,0]
       target_lags[code] = lag
 
-  y = pd.DataFrame(target_lags)
+  y = pd.concat(target_lags, axis=1)
 
   features_df = pd.concat(features, axis=1).dropna()
   feature_lags = []
@@ -87,7 +81,15 @@ def calculate_lags(features, target, m):
       lag_df.columns = [c + '_lag' + str(i) for c in list(features_df.columns)]
       feature_lags.append(lag_df)
 
-  all_lags = pd.concat(feature_lags, axis=1)
-  full_df = pd.concat([all_lags, y], axis=1).dropna()
+  feature_lags = pd.concat(feature_lags, axis=1)
+  full_df = pd.concat([feature_lags, y], axis=1).dropna()
   full_df = full_df.replace([np.inf, -np.inf], 0)
-  return full_df
+  out = {
+    'full_df': full_df,
+    'features': feature_lags,
+    'target': y
+  }
+  return out
+
+
+

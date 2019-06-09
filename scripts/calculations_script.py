@@ -16,8 +16,8 @@ if __name__ == "__main__":
 
   m = 100
 
-  start_date = '2019-01-01'
-  end_date = '2019-03-01'
+  start_date = '2018-01-01'
+  end_date = '2019-06-01'
 
   print("getting data")
   dfs = get_dfs(full_pathname + "/data")

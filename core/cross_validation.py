@@ -1,7 +1,7 @@
-def make_train_test(df, ratio = 0.2, target='BTCUSDT_ETHUSDT'):
+def make_train_test(df, ratio = 0.2, target=['y']):
     split_point = int((1 - ratio) * df.shape[0])
     y = df[target]
-    x = df.drop([target], axis=1)
+    x = df.drop(target, axis=1)
     y_train = y[0:split_point]
     x_train = x[0:split_point]
     y_test = y[(split_point + 1):]
