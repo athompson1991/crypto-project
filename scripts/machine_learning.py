@@ -22,5 +22,9 @@ if __name__ == "__main__":
 
   print("PCA")
   pca_reduction = do_pca_reduce(train_test)
+
   
+
+
+
 
